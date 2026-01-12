@@ -6,7 +6,7 @@
 
 body {
   font-family: Arial, sans-serif;
-  background: url('../assests/young-female-barista-wear-face-mask-serving-take-away-hot-coffee-paper-cup-consumer-cafe.jpg') no-repeat center center/cover;
+  background: url('../assets/young-female-barista-wear-face-mask-serving-take-away-hot-coffee-paper-cup-consumer-cafe.jpg') no-repeat center center/cover;
 }
 
 /* Form & book container */
@@ -199,13 +199,15 @@ nav {
   font-size: 20px;
   font-weight: 500;
   color: #fff;
-  transition: 0.3s;
+  display: inline-block; 
+  transition: color 0.5s, transform 0.5s ease; 
 }
 
 .nav-pages a:hover,
 .nav-pages a.active {
   color: #f4a261;
   font-weight: 600;
+  transform: scale(1.1); 
 }
 
 .btn-nav-res {

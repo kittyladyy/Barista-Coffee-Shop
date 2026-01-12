@@ -227,17 +227,18 @@ nav {
 
 .nav-pages a {
   text-decoration: none;
-  font-size: 18px;
-  font-weight: 400;
+  font-size: 20px;
+  font-weight: 500;
   color: #fff;
-  transition: font-size 0.5s ease, color 0.5s ease;
+  display: inline-block; 
+  transition: color 0.5s, transform 0.5s ease; 
 }
 
 .nav-pages a:hover,
 .nav-pages a.active {
   color: #f4a261;
   font-weight: 600;
-  font-size: 20px;
+  transform: scale(1.1); 
 }
 
 .btn-nav-res {
