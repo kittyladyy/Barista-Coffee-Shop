@@ -260,6 +260,10 @@ nav {
   color: #000;
 }
 
+#reserve-btn:hover svg {
+  fill: black; 
+}
+
 /* Logout button */
 #logout-btn {
   background: transparent;

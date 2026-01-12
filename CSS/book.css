@@ -228,6 +228,10 @@ nav {
   color: #000;
 }
 
+#reserve-btn:hover svg {
+  fill: black; 
+}
+
 .menu-toggle {
   display: none;
   font-size: 28px;

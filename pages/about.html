@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Cafe</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link rel="stylesheet" href="../brestacss/about.css">
+  <link rel="stylesheet" href="../CSS/about.css">
 </head>
 <body>
 
@@ -55,43 +55,6 @@
         Barista Cafe is free HTML CSS JS layout provided by 
         <a href="#">Tooplate</a>.
       </h3>
-      <button class="btn-outline" onclick="document.getElementById('team').scrollIntoView({behavior:'smooth'})">
-        Meet Baristas
-      </button>
-    </div>
-  </section>
-  
-  <section id="team" style="padding:60px 20px; background:#ffffff; text-align:center; border: 3px solid #b39175;">
-    <h2 style="font-size:28px; margin-bottom:40px; color:#333;">Our Team</h2>
-    <div class="team-container">
-      <div class="team-member">
-        <img src="../assests/m1.jpg" alt="Steve">
-        <h3>Mohamed</h3>
-        <div class="team-social">
-          <a href="https://www.linkedin.com/in/mohamed-mostafa-348127301?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank"><i class="fab fa-linkedin"></i></a>
-        </div>
-      </div>
-      <div class="team-member">
-        <img src="https://i.ibb.co/wh5z9DvC/Me.jpg" alt="loda" border="0">
-        <h3>khlood</h3>
-        <div class="team-social">
-          <a href="https://linkedin.com/in/m2" target="_blank"><i class="fab fa-linkedin"></i></a>
-        </div>
-      </div>
-      <div class="team-member">
-        <img src="../assests/m4.jpg" alt="John">
-        <h3>Abdallah</h3>
-        <div class="team-social">
-          <a href="https://www.linkedin.com/in/-abdallaahmed-?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank"><i class="fab fa-linkedin"></i></a>
-        </div>
-      </div>
-      <div class="team-member">
-                  <img src="https://i.ibb.co/TM61SQwx/5899895067714374258.jpg" alt="nada" border="0">
-        <h3>Nada</h3>
-        <div class="team-social">
-          <a href="https://www.linkedin.com/in/nada-essam-9a5713254?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank"><i class="fab fa-linkedin"></i></a>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -129,7 +92,35 @@
     </div>
   </footer>
 
-  <script src="../brestajs/script.js"></script>
+  <script type="module" src="../brestajs/script.js"></script>
+  <script>
+    const userBtn = document.getElementById("user-btn");
+    const userMenu = document.getElementById("user-menu");
+    const savedUser = localStorage.getItem("baristaUser");
+
+    if (savedUser) {
+      userMenu.innerHTML = `
+    <span style="color:#fff;">👋 Hi, ${savedUser}</span>
+    <a href="#" id="logout-btn" title="Logout">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M16 13v-2H7V8l-5 4 5 4v-3zM20 3H10v2h10v14H10v2h10c1.1 
+        0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/>
+      </svg>
+    </a>
+  `;
+
+      document.getElementById("logout-btn").addEventListener("click", (e) => {
+        e.preventDefault();
+        localStorage.removeItem("baristaUser");
+        localStorage.removeItem("baristaPass");
+        alert(" You have logged out.");
+        window.location.reload();
+      });
+    } else {
+      userBtn.textContent = "Login / Sign up";
+      userBtn.href = "login.html";
+    }
+  </script>
 
 </body>
 </html>

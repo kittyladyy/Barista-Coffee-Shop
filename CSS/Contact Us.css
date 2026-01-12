@@ -320,6 +320,10 @@
       color: #000;
     }
 
+    #reserve-btn:hover svg {
+      fill: black; 
+    }
+  
     /* زرار اللوج اوت */
     #logout-btn {
       background: transparent;
