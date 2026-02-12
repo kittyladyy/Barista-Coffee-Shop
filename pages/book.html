@@ -11,6 +11,29 @@
 </head>
 
 <body>
+<!-- Navbar -->
+  <nav>
+    <div class="logo">
+      <img src="https://i.ibb.co/b5Bwzcn6/coffee-beans-removebg-preview.png" alt="coffee-beans-removebg-preview">Barista
+    </div>
+    <ul class="nav-pages" id="nav-pages">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="../index.html#reviews">Reviews</a></li>
+      <li><a href="menu.html">Our Menu</a></li>
+      <li><a href="Contact Us.html">Contact</a></li>
+    </ul>
+    <a href="book.html" class="btn-nav-res" id="reserve-btn">Reservation
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#f5f5f5">
+        <path d="m256-240-56-56 384-384H240v-80h480v480h-80v-344L256-240Z" />
+      </svg>
+    </a>
+    <div class="user-menu" id="user-menu">
+      <a href="#" class="btn" id="user-btn">Login</a>
+    </div>
+    <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+  </nav>
+
 
   <div class="container">
     <!-- Booking Form -->
@@ -51,39 +74,31 @@
         <label><input type="radio" name="payment" value="Cash"> Cash</label>
       </div>
 
-      <button id="confirm-btn">Confirm Order</button>
+      <button type="button" id="confirm-btn">Confirm Order</button>
+      <button 
+        type="button" 
+        id="cancel-btn"
+        onclick="document.getElementById('checkout').style.display='none';
+        document.getElementById('overlay').style.display='none';"
+      >
+        Cancel
+      </button>
     </div>
 
-    <!-- Success Message -->
     <div id="success">
       <p>🎉 Booking Successful! See you soon</p>
     </div>
+    <div id="discount-box" class="discount-box hidden">
+      <p id="discount-message"></p>
+      <span id="promo-code" style="font-weight: bold; color: #DDA15E; display: block; margin: 10px 0; font-size: 20px;"></span>
+      <button id="copyBtn" class="hidden">copy</button>
+    
+      <div id="promo-input-box" class="hidden">
+        <input type="text" id="promo-input" placeholder="Enter promo code">
+        <button id="apply-promo">Apply</button>
+      </div>
+    </div>
   </div>
-
-  <!-- Navbar -->
-  <nav>
-    <div class="logo">
-      <img src="https://i.ibb.co/b5Bwzcn6/coffee-beans-removebg-preview.png" alt="coffee-beans-removebg-preview">Barista
-    </div>
-    <ul class="nav-pages" id="nav-pages">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="menu.html">Our Menu</a></li>
-      <li><a href="Contact Us.html">Contact</a></li>
-    </ul>
-    <a href="book.html" class="btn-nav-res" id="reserve-btn">Reservation
-      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#f5f5f5">
-        <path d="m256-240-56-56 384-384H240v-80h480v480h-80v-344L256-240Z" />
-      </svg>
-    </a>
-    <div class="user-menu" id="user-menu">
-      <a href="#" class="btn" id="user-btn">Login</a>
-    </div>
-    <div class="menu-toggle" id="menu-toggle">&#9776;</div>
-  </nav>
-
-  <br><br><br><br><br><br><br><br><br><br>
-  <br><br><br><br><br><br><br><br><br><br>
 
   <!-- Footer -->
   <footer>
@@ -125,8 +140,8 @@
     </div>
   </footer>
 
-  <!-- Script for menu toggle -->
   <script>
+    document.addEventListener("DOMContentLoaded", function () {
     const menuToggle = document.querySelector('.menu-toggle');
     const navPages = document.querySelector('.nav-pages');
     const btnNavRes = document.querySelector('.btn-nav-res');
@@ -135,7 +150,7 @@
       navPages.classList.toggle('active');
       btnNavRes.classList.toggle('active');
     });
-
+    
     const form = document.getElementById('booking-form');
     const checkout = document.getElementById('checkout');
     const success = document.getElementById('success');
@@ -155,24 +170,145 @@
       overlay.style.display = 'block';
     });
 
+    const discountBox = document.getElementById("discount-box");
+    const discountMsg = document.getElementById("discount-message");
+    const promoBox = document.getElementById("promo-input-box");
+    const promoInput = document.getElementById("promo-input");
+    const applyPromoBtn = document.getElementById("apply-promo");
+    const promoCodeSpan = document.getElementById("promo-code");
+    const copyBtn = document.getElementById("copyBtn");
+
     document.getElementById('confirm-btn').addEventListener('click', function () {
-      const selectedPayment = document.querySelector('input[name="payment"]:checked').value;
-      const paymentText = document.createElement('p');
-      paymentText.innerHTML = `<strong>Payment Method:</strong> ${selectedPayment}`;
-      checkout.appendChild(paymentText);
 
       checkout.style.display = 'none';
-      success.style.display = 'block';
+overlay.style.display = 'none';
 
-      setTimeout(() => {
+const currentUser = localStorage.getItem("baristaUser"); 
+if (!currentUser) {
+    alert("Please login first!");
+    return;
+}
+
+const userBookingKey = `bookingCount_${currentUser}`;
+const userPromoKey = `promoCode_${currentUser}`;
+
+let count = parseInt(localStorage.getItem(userBookingKey)) || 0;
+count++;
+
+localStorage.setItem(userBookingKey, count);
+
+// 🎉 Third booking → give code
+if (count === 3) {
+
+    const randomCode = "BAR-" + Math.random()
+        .toString(36)
+        .substring(2,7)
+        .toUpperCase();
+
+    localStorage.setItem(userPromoKey, randomCode);
+
+    discountMsg.innerHTML = `
+      🎉 <strong>Awesome!</strong><br>
+      This is your 3rd booking!<br>
+      Your code:
+    `;
+
+    promoCodeSpan.innerText = randomCode;
+
+    discountBox.classList.remove("hidden");
+    copyBtn.classList.remove("hidden");
+    promoBox.classList.add("hidden");
+
+    finishBooking();
+}
+
+// 💳 Fourth booking → ask for code
+else if (count === 4) {
+
+    discountMsg.innerText = 
+      "Enter your loyalty discount code to get 30% OFF:";
+
+    discountBox.classList.remove("hidden");
+    promoBox.classList.remove("hidden");
+    copyBtn.classList.add("hidden");
+
+}
+
+else {
+    finishBooking();
+}
+});
+
+applyPromoBtn.addEventListener("click", () => {
+
+const currentUser = localStorage.getItem("baristaUser");
+if (!currentUser) {
+  alert("Please login first!");
+  return;
+}
+
+
+const userPromoKey = `promoCode_${currentUser}`;
+const userBookingKey = `bookingCount_${currentUser}`;
+
+const savedCode = localStorage.getItem(userPromoKey);
+const enteredCode = promoInput.value.trim();
+
+if (enteredCode === savedCode && savedCode !== null) {
+
+    discountMsg.innerHTML = "✅ Discount Applied! You saved 30% 🎉";
+    promoBox.classList.add("hidden");
+
+    // reset counter after success
+    localStorage.setItem(userBookingKey, 0);
+    localStorage.removeItem(userPromoKey);
+    checkout.style.display = 'none';   // 👈 أضيفي دي
+    overlay.style.display = 'none';    // 👈 ودي
+    finishBooking();
+
+} else {
+    discountMsg.innerHTML = "❌ Invalid or missing code. Try again!";
+}
+});
+
+
+function finishBooking() {
+    checkout.style.display = 'none';
+    overlay.style.display = 'none';
+    success.style.display = 'block';
+
+    setTimeout(() => {
         success.style.display = 'none';
-        overlay.style.display = 'none';
         form.reset();
-      }, 3000);
-    });
-  </script>
+    }, 3000);
+}
 
-  <script>
+// منطق زر النسخ
+copyBtn.addEventListener('click', () => {
+    // 1. الحصول على النص من داخل الـ span الذي أضفناه
+    const textToCopy = promoCodeSpan.innerText;
+
+    if (textToCopy) {
+        // 2. استخدام Clipboard API الحديثة للنسخ
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            // 3. تغيير شكل الزرار مؤقتاً كـ Feedback لليوزر
+            const originalText = copyBtn.innerText;
+            copyBtn.innerText = "Copied! ✅";
+            copyBtn.style.backgroundColor = "#28a745"; // لون أخضر للنجاح
+
+            // 4. إرجاع الزرار لشكلة الأصلي بعد ثانيتين
+            setTimeout(() => {
+                copyBtn.innerText = originalText;
+                copyBtn.style.backgroundColor = ""; // يرجع للون الـ CSS الأصلي
+            }, 2000);
+        }).catch(err => {
+            console.error('Failed to copy: ', err);
+            alert("Could not copy code, please copy it manually.");
+        });
+    }
+});
+
+
     const userBtn = document.getElementById("user-btn");
     const userMenu = document.getElementById("user-menu");
     const savedUser = localStorage.getItem("baristaUser");
@@ -199,8 +335,7 @@
       userBtn.textContent = "Login / Sign up";
       userBtn.href = "login.html";
     }
+  });
   </script>
-
 </body>
-
 </html>

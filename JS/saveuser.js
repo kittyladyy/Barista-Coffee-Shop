@@ -22,7 +22,7 @@ const userBtn = document.getElementById("user-btn");
       });
     }else{
       userBtn.textContent = "Login / Sign up";
-      userBtn.href = "login.html";
+      userBtn.href = "../pages/signup.html";
     }
 
     // Hamburger menu

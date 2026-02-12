@@ -29,7 +29,7 @@ form.addEventListener('submit',e=>{
 
   if(user===savedUser && pass===savedPass){
     showAlert("Welcome "+user+"!");
-    setTimeout(()=>window.location.href="index.html",1500);
+    setTimeout(()=>window.location.href="../index.html",1500);
   }else{
     showAlert("Wrong username or password");
   }

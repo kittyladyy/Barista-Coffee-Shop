@@ -43,3 +43,23 @@ function showAlert(msg){
   alertBox.classList.add("show");
   setTimeout(()=>alertBox.classList.remove("show"),3000);
 }
+
+// تحديد زر الحجز
+
+// إضافة حدث عند الضغط على الزر
+const reserveBtn = document.getElementById("reserve-btn");
+reserveBtn.addEventListener("click", (e) => {
+    const isLogged = localStorage.getItem("baristaUser");
+
+    if (!isLogged) {
+        // منع الانتقال لصفحة الحجز (book.html)
+        e.preventDefault();
+
+        // تنبيه المستخدم
+        alert("Please Login or Sign up first to make a reservation! ☕");
+
+        // تحويله لصفحة التسجيل (تأكدي من صحة المسار بناءً على مكان index.html)
+        window.location.href = "pages/signup.html"; 
+    }
+    // إذا كان مسجلاً، سينتقل لصفحة book.html بشكل طبيعي
+});

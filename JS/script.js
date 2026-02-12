@@ -43,5 +43,5 @@ if(savedUser){
   });
 }else{
   userBtn.textContent = "Login / Sign up";
-  userBtn.href = "login.html";   // 👈 هنا المفتاح
+  userBtn.href = "../pages/signup.html";
 }
