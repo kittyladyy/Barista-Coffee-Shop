@@ -1,4 +1,3 @@
-/* Reset */
 * {
   margin: 0;
   padding: 0;
@@ -116,75 +115,6 @@ body {
   background: #fff;
   color: #000;
 }
-
-#team {
-  scroll-margin-top: 120px;
-}
-
-.team-container {
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  flex-wrap: wrap;
-}
-
-.team-member {
-  text-align: center;
-  opacity: 0;
-  transform: translateY(40px);
-  transition: all 1.2s ease;
-  background: #fff;
-  padding: 20px;
-  border-radius: 12px;
-  width: 200px;
-  color: #333;
-}
-
-.team-member.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.team-member img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border: 4px solid #7c5050;
-  transition: transform 0.5 ease, filter 0.5ease, box-shadow 0.5 ease;
-}
-
-.team-member h3 {
-  margin-top: 15px;
-}
-
-.team-social {
-  margin-top: 10px;
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-}
-
-.team-social a {
-  font-size: 22px;
-  transition: 0.3s;
-}
-
-.team-social a .fa-linkedin {
-  color: #0e76a8;
-}
-
-.team-social a .fa-instagram {
-  color: #e1306c;
-}
-
-.team-social a .fa-github {
-  color: #333;
-}
-
-.team-social a:hover {
-  transform: scale(1.2);
-}
-
 
 /* Navbar */
 nav {
@@ -389,6 +319,171 @@ nav {
 .btn-dark:hover {
   background: #DDA15E;
   color: #fff;
+}
+
+.testimonials-section {
+  background-color: #7d6450; 
+  padding: 80px 0;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.section-title h4 {
+  font-style: italic;
+  font-weight: 300;
+  opacity: 0.8;
+  margin-bottom: 10px;
+}
+
+.section-title h2 {
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.timeline-container {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+.timeline-line {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 100%;
+  background-color: white;
+  z-index: 1;
+}
+
+.testimonial-item {
+  position: relative;
+  width: 50%;
+  margin-bottom: 40px;
+  z-index: 2;
+}
+
+.testimonial-item.left {
+  left: 0;
+  padding-right: 50px;
+}
+
+.testimonial-item.right {
+  left: 50%;
+  padding-left: 50px;
+}
+
+.dot {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background-color: white;
+  border-radius: 50%;
+  top: 20px;
+  z-index: 3;
+}
+
+.left .dot { right: -10px; }
+.right .dot { left: -10px; }
+
+.testimonial-card {
+  background-color: #bc8e52; 
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.testimonial-card::after {
+  content: "";
+  position: absolute;
+  top: 20px;
+  border-style: solid;
+}
+
+.left .testimonial-card::after {
+  right: -15px;
+  border-width: 10px 0 10px 15px;
+  border-color: transparent transparent transparent #bc8e52;
+}
+
+.right .testimonial-card::after {
+  left: -15px;
+  border-width: 10px 15px 10px 0;
+  border-color: transparent #bc8e52 transparent transparent;
+}
+
+.card-header {
+  background: url(../assets/mid-section-waitress-wiping-espresso-machine-with-napkin-cafa-c.jpg); /* صورة باريستا */
+  background-position: center; /* توسيط الصورة */
+  background-size: cover;
+  object-fit:scale-down;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.customer-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid white;
+  object-fit: cover;
+}
+
+.customer-info h5 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.customer-info span {
+  font-size: 0.8rem;
+  opacity: 0.9;
+}
+
+.card-body {
+  padding: 25px;
+}
+
+.card-body p {
+  font-style: italic;
+  line-height: 1.6;
+  font-size: 0.95rem;
+  margin-bottom: 15px;
+}
+
+.card-body hr {
+  border: 0;
+  border-top: 1px solid rgba(255,255,255,0.3);
+  margin: 15px 0;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rating-text { font-weight: 600; }
+.stars { color: white; font-size: 0.9rem; }
+
+@media (max-width: 880px) {
+  .timeline-line { left: 20px; }
+  .testimonial-item { width: 100%; left: 0 !important; padding-left: 50px !important; padding-right: 0 !important; }
+  .dot { left: 12px !important; }
+  .testimonial-card::after {
+      left: -15px !important;
+      border-width: 10px 15px 10px 0 !important;
+      border-color: transparent #bc8e52 transparent transparent !important;
+  }
 }
 
 /* Footer */
